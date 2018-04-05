@@ -23,25 +23,26 @@ public class InterviewMethods {
         listNode a2 = new listNode(2);
         listNode a3 = new listNode(3);
         listNode a4 = new listNode(4);
-        listNode b1 = new listNode(1);
-        listNode b2 = new listNode(2);
-        listNode b3 = new listNode(3);
+        listNode a5 = new listNode(5);
+        listNode a6 = new listNode(6);
+        listNode a7 = new listNode(7);
         a1.next = a2;
         a2.next = a3;
         a3.next = a4;
-        b1.next = b2;
-        a1.printNodes();
-        b1.printNodes();
+        a4.next = a5;
+        a5.next = a6;
+        a6.next = a7;
         
-        listNode intersect = intersectionNode(a1, b1);
-        if(intersect != null)
+        listNode result = listLoop(a1);
+        if(result != null)
         {
-        intersect.printNodes();
+        System.out.println(result.data);
         }
         else
         {
-            System.out.println("no intersection");
+            System.out.println("nope");
         }
+
     }
  
     //*---------FUNCTIONS-------------*
@@ -503,5 +504,28 @@ public class InterviewMethods {
         }
         size++;
         return new listNodeResult(temp, size);
+    }
+    
+    public static listNode listLoop(listNode start)
+    {
+        listNode slow = start;
+        listNode fast = start;
+        while(fast != null && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast)
+            {
+                break;
+            }
+        }
+        if(slow != fast){return null;}
+        slow = start;
+        while(slow != fast)
+        {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
     }
 }//END BRACKET
