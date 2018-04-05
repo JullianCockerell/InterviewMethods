@@ -23,18 +23,25 @@ public class InterviewMethods {
         listNode a2 = new listNode(2);
         listNode a3 = new listNode(3);
         listNode a4 = new listNode(4);
-        listNode a5 = new listNode(4);
-        listNode a6 = new listNode(2);
-        listNode a7 = new listNode(1);
+        listNode b1 = new listNode(1);
+        listNode b2 = new listNode(2);
+        listNode b3 = new listNode(3);
         a1.next = a2;
         a2.next = a3;
         a3.next = a4;
-        a4.next = a5;
-        a5.next = a6;
-        a6.next = a7;
+        b1.next = b2;
         a1.printNodes();
+        b1.printNodes();
         
-        System.out.println(isPalindrome(a1));
+        listNode intersect = intersectionNode(a1, b1);
+        if(intersect != null)
+        {
+        intersect.printNodes();
+        }
+        else
+        {
+            System.out.println("no intersection");
+        }
     }
  
     //*---------FUNCTIONS-------------*
@@ -453,5 +460,48 @@ public class InterviewMethods {
             slow = slow.next;
         }
         return true;
+    }
+    
+    public static listNode intersectionNode(listNode one, listNode two)
+    {
+        listNodeResult result1 = getTailSize(one);
+        listNodeResult result2 = getTailSize(two);
+        
+        if(result1.tail != result2.tail){return null;}
+        int len1 = result1.size;
+        int len2 = result2.size;
+        if(len1 > len2)
+        {
+            for(int i = 0; i< len1-len2; i++)
+            {
+                one = one.next;
+            }
+        }
+        if(len2 > len1)
+        {
+            for(int i = 0; i< len2-len1; i++)
+            {
+                two = two.next;
+            }
+        }
+        while(one != two)
+        {
+            one = one.next;
+            two = two.next;
+        }
+        return one;
+    }
+    
+    public static listNodeResult getTailSize(listNode input)
+    {
+        int size = 0;
+        listNode temp = input;
+        while(temp.next != null)
+        {
+            size++;
+            temp = temp.next;
+        }
+        size++;
+        return new listNodeResult(temp, size);
     }
 }//END BRACKET
