@@ -38,7 +38,7 @@ public class jStackWitMin extends jStack<Integer>
     
     public int min()
     {
-        if(minStack.isEmpty()){System.out.println("Stack is empty!");}
+        if(minStack.isEmpty()){return Integer.MAX_VALUE;}
         return minStack.peek();
     }
 }

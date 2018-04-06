@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.lang.StringBuilder;
 import java.lang.Math;
 import java.util.Stack;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,30 +20,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        listNode a1 = new listNode(1);
-        listNode a2 = new listNode(2);
-        listNode a3 = new listNode(3);
-        listNode a4 = new listNode(4);
-        listNode a5 = new listNode(5);
-        listNode a6 = new listNode(6);
-        listNode a7 = new listNode(7);
-        a1.next = a2;
-        a2.next = a3;
-        a3.next = a4;
-        a4.next = a5;
-        a5.next = a6;
-        a6.next = a7;
-        
-        listNode result = listLoop(a1);
-        if(result != null)
-        {
-        System.out.println(result.data);
-        }
-        else
-        {
-            System.out.println("nope");
-        }
-
+        testStackSet();
     }
  
     //*---------FUNCTIONS-------------*
@@ -527,6 +505,42 @@ public class InterviewMethods {
             fast = fast.next;
         }
         return slow;
+    }
+    
+    public static void testMinStack()
+    {
+        jStackWitMin min = new jStackWitMin();
+        min.push(5);
+        min.push(7);
+        min.push(8);
+        min.push(9);
+        min.push(10);
+        min.push(11);
+        min.push(2);
+        min.push(1);
+        min.push(1);
+        min.pop();
+        min.pop();
+        min.pop();
+        min.pop();
+        System.out.println(min.min());
+    }
+    
+    public static void testStackSet()
+    {
+        setOfStacks stacks = new setOfStacks(2);
+        stacks.push(1);
+        stacks.push(2);
+        stacks.push(3);
+        stacks.push(4);
+        stacks.push(5);
+        stacks.push(6);
+        stacks.push(7);
+        
+        for(int i = 0; i < 5; i++)
+        {
+            System.out.println(stacks.pop());
+        }
     }
     
 }//END BRACKET
