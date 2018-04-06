@@ -20,7 +20,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        testStackSet();
+        testStackQueue();
     }
  
     //*---------FUNCTIONS-------------*
@@ -540,6 +540,19 @@ public class InterviewMethods {
         for(int i = 0; i < 5; i++)
         {
             System.out.println(stacks.pop());
+        }
+    }
+    
+    public static void testStackQueue()
+    {
+        stackQueue<Integer> test = new stackQueue();
+        test.add(1);
+        test.add(2);
+        test.add(3);
+        test.add(4);
+        for(int i = 0; i <4; i++)
+        {
+            System.out.println(test.remove());
         }
     }
     
