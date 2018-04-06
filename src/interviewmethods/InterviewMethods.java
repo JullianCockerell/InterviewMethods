@@ -528,4 +528,5 @@ public class InterviewMethods {
         }
         return slow;
     }
+    
 }//END BRACKET
