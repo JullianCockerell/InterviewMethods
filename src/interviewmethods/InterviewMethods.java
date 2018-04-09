@@ -20,7 +20,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        testStackQueue();
+        testSortStack();
     }
  
     //*---------FUNCTIONS-------------*
@@ -553,6 +553,42 @@ public class InterviewMethods {
         for(int i = 0; i <4; i++)
         {
             System.out.println(test.remove());
+        }
+    }
+    
+    public static void sortStack(Stack<Integer> input)
+    {
+        Stack<Integer> output = new Stack<Integer>();
+        int tmp;
+        while(!input.isEmpty())
+        {
+            tmp = input.pop();
+            while(!output.isEmpty() && output.peek() > tmp)
+            {
+                input.push(output.pop());
+            }
+            output.push(tmp);
+        }
+        while(!output.isEmpty())
+        {
+            input.push(output.pop());
+        }
+    }
+    
+    public static void testSortStack()
+    {
+        Stack<Integer> test = new Stack<Integer>();
+        test.push(20);
+        test.push(1);
+        test.push(17);
+        test.push(5);
+        test.push(500);
+        test.push(3);
+        test.push(3);
+        sortStack(test);
+        while(!test.isEmpty())
+        {
+            System.out.println(test.pop());
         }
     }
     
