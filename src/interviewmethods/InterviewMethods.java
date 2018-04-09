@@ -25,7 +25,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        testMakeTreeFromArray();
+        testMakeListsFromNodeLevels();
     }
  
     //*---------FUNCTIONS-------------*
@@ -641,7 +641,6 @@ public class InterviewMethods {
             c++;
             if(c >= level){level = level*2; System.out.println(""); c = 0;}
         }
-        
     }
     
     public static void testPrintTree()
@@ -657,6 +656,60 @@ public class InterviewMethods {
         printTree(root);
     }
     
+    public static ArrayList<LinkedList<binTreeNode>> makeListsFromNodeLevels(binTreeNode root)
+    {
+        if(root == null){return null;}
+        int level = 1;
+        int c = 0;
+        binTreeNode temp = root;
+        Queue<binTreeNode> q = new LinkedList<binTreeNode>();
+        LinkedList<binTreeNode> current = new LinkedList<binTreeNode>();
+        ArrayList<LinkedList<binTreeNode>> result = new ArrayList<LinkedList<binTreeNode>>();
+        q.add(temp);
+        while(!q.isEmpty())
+        {
+            temp = q.remove();
+            current.add(temp);
+            if(temp.left != null){q.add(temp.left);}
+            if(temp.right != null){q.add(temp.right);}
+            c++;
+            if(c >= level)
+            {
+                level = level*2;
+                c = 0;
+                result.add(current);
+                current = new LinkedList<binTreeNode>();
+            }
+        }
+        if(current.get(0) != null)
+        {
+            result.add(current);
+        }
+        return result;
+    }
+        
+    public static void testMakeListsFromNodeLevels()
+    {
+        binTreeNode root = new binTreeNode(0);
+        root.left = new binTreeNode(1);
+        root.right = new binTreeNode(2);
+        root.left.left = new binTreeNode(3);
+        root.left.right = new binTreeNode(4);
+        root.right.left = new binTreeNode(5);
+        root.right.right = new binTreeNode(6);
+        root.left.left.left = new binTreeNode(7);
+        
+        ArrayList<LinkedList<binTreeNode>> n = makeListsFromNodeLevels(root);
+        LinkedList<binTreeNode> one = n.get(0);
+        LinkedList<binTreeNode> two = n.get(1);
+        LinkedList<binTreeNode> three = n.get(2);
+        LinkedList<binTreeNode> four = n.get(3);
+        
+        System.out.println(one.get(0).value);
+        System.out.println(two.get(0).value);
+        System.out.println(three.get(0).value);
+        System.out.println(four.get(0).value);
+    }
     
     
     
