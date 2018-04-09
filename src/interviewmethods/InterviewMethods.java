@@ -10,6 +10,9 @@ import java.lang.StringBuilder;
 import java.lang.Math;
 import java.util.Stack;
 import java.util.ArrayList;
+import java.util.AbstractCollection;
+
+
 
 /**
  *
@@ -591,5 +594,41 @@ public class InterviewMethods {
             System.out.println(test.pop());
         }
     }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }//END BRACKET
