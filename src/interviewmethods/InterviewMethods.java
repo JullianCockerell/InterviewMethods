@@ -11,6 +11,8 @@ import java.lang.Math;
 import java.util.Stack;
 import java.util.ArrayList;
 import java.util.AbstractCollection;
+import java.util.Queue;
+import java.util.LinkedList;
 
 
 
@@ -23,7 +25,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        testSortStack();
+        testMakeTreeFromArray();
     }
  
     //*---------FUNCTIONS-------------*
@@ -595,7 +597,65 @@ public class InterviewMethods {
         }
     }
     
-
+    public static binTreeNode makeTreeFromArray(int[] input)
+    {
+        return makeTreeFromArray(input, 0, input.length - 1);
+    }
+    
+    public static binTreeNode makeTreeFromArray(int[] input, int start, int end)
+    {
+        if(end < start){return null;}
+        int mid = (start + end)/2;
+        binTreeNode n = new binTreeNode(input[mid]);
+        n.left = makeTreeFromArray(input, start, mid - 1);
+        n.right = makeTreeFromArray(input, mid + 1, end);
+        return n;
+    }
+    
+    public static void testMakeTreeFromArray()
+    {
+        int[] array = new int[20];
+        for(int i = 0; i<20; i++)
+        {
+            array[i] = i+1;
+        }
+        binTreeNode n = makeTreeFromArray(array);
+        printTree(n);
+    }
+    
+    public static void printTree(binTreeNode root)
+    {
+        
+        if(root == null){return;}
+        int level = 1;
+        int c = 0;
+        binTreeNode temp = root;
+        Queue<binTreeNode> q = new LinkedList<binTreeNode>();
+        q.add(temp);
+        while(!q.isEmpty())
+        {
+            temp = q.remove();
+            System.out.print(temp.value + " ");
+            if(temp.left != null){q.add(temp.left);}
+            if(temp.right != null){q.add(temp.right);}
+            c++;
+            if(c >= level){level = level*2; System.out.println(""); c = 0;}
+        }
+        
+    }
+    
+    public static void testPrintTree()
+    {
+        binTreeNode root = new binTreeNode(0);
+        root.left = new binTreeNode(1);
+        root.right = new binTreeNode(2);
+        root.left.left = new binTreeNode(3);
+        root.left.right = new binTreeNode(4);
+        root.right.left = new binTreeNode(5);
+        root.right.right = new binTreeNode(6);
+        root.left.left.left = new binTreeNode(7);
+        printTree(root);
+    }
     
     
     
