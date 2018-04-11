@@ -25,7 +25,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        testMakeListsFromNodeLevels();
+       
     }
  
     //*---------FUNCTIONS-------------*
@@ -709,6 +709,80 @@ public class InterviewMethods {
         System.out.println(two.get(0).value);
         System.out.println(three.get(0).value);
         System.out.println(four.get(0).value);
+    }
+    
+    public static boolean checkForBalancedTree(binTreeNode root)
+    {
+        return checkHeight(root) != Integer.MIN_VALUE;
+    }
+    
+    public static int checkHeight(binTreeNode root)
+    {
+        if(root == null)
+        {
+            return -1;
+        }
+        int leftHeight = checkHeight(root.left);
+        if(leftHeight == Integer.MIN_VALUE){return Integer.MIN_VALUE;}
+        int rightHeight = checkHeight(root.right);
+        if(rightHeight == Integer.MIN_VALUE){return Integer.MIN_VALUE;}
+        
+        int heightDiff = Math.abs(leftHeight - rightHeight);
+        if(heightDiff > 1)
+        {
+            return Integer.MIN_VALUE;
+        }
+        else
+        {
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+    }
+    
+    public static void testCheckForBalancedTree()
+    {
+        binTreeNode root = new binTreeNode(0);
+        root.left = new binTreeNode(1);
+        root.right = new binTreeNode(2);
+        root.left.left = new binTreeNode(3);
+        root.left.right = new binTreeNode(4);
+        root.right.left = new binTreeNode(5);
+        root.right.right = new binTreeNode(6);
+        root.left.left.left = new binTreeNode(7);
+        //root.left.left.left.left = new binTreeNode(13);  //returns false when this line is active and tree becomes unbalanced
+        System.out.println(checkForBalancedTree(root));
+    }
+    
+    public static boolean checkIfBST(binTreeNode root)
+    {
+        return checkIfBST(root, null, null);
+    }
+    
+    public static boolean checkIfBST(binTreeNode node, Integer min, Integer max)
+    {
+        if(node == null){return true;}
+        if((min != null && node.value <= min) || (max != null && node.value > max))
+        {
+            return false;
+        }
+        if(!checkIfBST(node.left, min, node.value) || !checkIfBST(node.right, node.value, max))
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    public static void testCheckIfBST()
+    {
+        binTreeNode root = new binTreeNode(20);
+        root.left = new binTreeNode(10);
+        root.right = new binTreeNode(30);
+        root.left.left = new binTreeNode(5);
+        root.left.right = new binTreeNode(15);
+        root.right.left = new binTreeNode(25);
+        root.right.right = new binTreeNode(35);
+        root.left.left.left = new binTreeNode(2);
+        //root.left.left.right = new binTreeNode(3); //returns false when this line is active and tree breaks rule for binary search tree
+        System.out.println(checkIfBST(root));
     }
     
     
