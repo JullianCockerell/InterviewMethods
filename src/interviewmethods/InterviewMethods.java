@@ -25,7 +25,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-       
+        testNextNodeInOrder();
     }
  
     //*---------FUNCTIONS-------------*
@@ -656,6 +656,108 @@ public class InterviewMethods {
         printTree(root);
     }
     
+    public static binTreeNodeWParent nextNodeInOrder(binTreeNodeWParent root)
+    {
+        if(root == null)
+        {
+            return null;
+        }
+        
+        if(root.right != null)
+        {
+            return leftMostChild(root.right);
+        }
+        else
+        {
+            binTreeNodeWParent top = root.parent;
+            binTreeNodeWParent bottom = root;
+        
+            while(top != null && top.left != bottom)
+            {
+                bottom = top;
+                top = bottom.parent;
+            }
+        
+            return top;
+        }
+    }
+    
+    public static binTreeNodeWParent leftMostChild(binTreeNodeWParent root)
+    {
+        if(root == null){return null;}
+        while(root.left != null)
+        {
+            root = root.left;
+        }
+        return root;
+    }
+    
+    public static void testNextNodeInOrder()
+    {
+     binTreeNodeWParent root = new binTreeNodeWParent(0);   
+     root.addNode(1);
+     root.addNode(2);
+     root.left.addNode(3);
+     root.left.addNode(4);
+     root.right.addNode(5);
+     root.right.addNode(6);
+     root.left.left.addNode(7);
+     root.left.left.addNode(8);
+     root.left.right.addNode(9);
+     root.left.right.addNode(10);
+     root.right.left.addNode(11);
+     root.right.left.addNode(12);
+     root.right.right.addNode(13);
+     root.right.right.addNode(14);
+     
+     printTreeParent(root);
+     binTreeNodeWParent output = nextNodeInOrder(root.left.left.right);
+     System.out.println(output.value);
+    }
+    
+    public static void printTreeParent(binTreeNodeWParent root)
+    {
+        
+        if(root == null){return;}
+        int level = 1;
+        int c = 0;
+        binTreeNodeWParent temp = root;
+        Queue<binTreeNodeWParent> q = new LinkedList<binTreeNodeWParent>();
+        q.add(temp);
+        while(!q.isEmpty())
+        {
+            temp = q.remove();
+            System.out.print(temp.value + " ");
+            if(temp.left != null){q.add(temp.left);}
+            if(temp.right != null){q.add(temp.right);}
+            c++;
+            if(c >= level){level = level*2; System.out.println(""); c = 0;}
+        }
+        
+    }
+    
+    public static void testPrintTreeParent()
+    {
+        binTreeNodeWParent root = new binTreeNodeWParent(0);   
+        root.addNode(1);
+        root.addNode(2);
+        root.left.addNode(3);
+        root.left.addNode(4);
+        root.right.addNode(5);
+        root.right.addNode(6);
+        root.left.left.addNode(7);
+        root.left.left.addNode(8);
+        root.left.right.addNode(9);
+        root.left.right.addNode(10);
+        root.right.left.addNode(11);
+        root.right.left.addNode(12);
+        root.right.right.addNode(13);
+        root.right.right.addNode(14);
+        printTreeParent(root);
+    }
+    
+
+        
     public static ArrayList<LinkedList<binTreeNode>> makeListsFromNodeLevels(binTreeNode root)
     {
         if(root == null){return null;}
