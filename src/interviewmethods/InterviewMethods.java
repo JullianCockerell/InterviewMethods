@@ -25,7 +25,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        testNextNodeInOrder();
+        testFindBuildOrder();
     }
  
     //*---------FUNCTIONS-------------*
@@ -887,9 +887,76 @@ public class InterviewMethods {
         System.out.println(checkIfBST(root));
     }
     
+    public static jGraph buildGraph(String[] projects, String[][] dependancies)
+    {
+        jGraph graph = new jGraph();
+        for(String project : projects)
+        {
+            graph.getOrCreateNode(project);
+        }
+        String first, second;
+        for(String dependancy[] : dependancies)
+        {
+            first = dependancy[0];
+            second = dependancy[1];
+            graph.addEdge(first, second);
+        }
+        return graph;
+    }
     
+    public static jProject[] orderProjects(ArrayList<jProject> projects)
+    {
+        jProject[] ordered = new jProject[projects.size()];
+        int listEnd = addNonDependent(ordered, projects, 0);
+        int toBeProc = 0;
+        while(toBeProc < ordered.length)
+        {
+            jProject current = ordered[toBeProc];
+            if(current == null)
+            {
+                return null;
+            }
+            ArrayList<jProject> children = current.getChildren();
+            for(jProject child : children)
+            {
+                child.minusDepend();
+            }
+            listEnd = addNonDependent(ordered, children, listEnd);
+            toBeProc++;
+        }
+        return ordered;
+    }
     
+    public static int addNonDependent(jProject[] ordered, ArrayList<jProject> projects, int indNum)
+    {
+        for(jProject project : projects)
+        {
+            if(project.getDependNum() == 0)
+            {
+                ordered[indNum] = project;
+                indNum++;
+            }
+        }
+        return indNum;
+    }
     
+    public static jProject[] findBuildOrder(String[] projects, String[][] dependancies)
+    {
+        jGraph graph = buildGraph(projects, dependancies);
+        return orderProjects(graph.getNodes());
+    }
+    
+    public static void testFindBuildOrder()
+    {
+        String[] projects = new String[]{"a", "b", "c", "d", "e", "f"};
+        String[][] depends = new String[][] {{"a" , "d"}, {"f", "b"}, {"b", "d"}, {"f", "a"}, {"d", "c"}};
+        
+        jProject[] ordered = findBuildOrder(projects, depends);
+        for(jProject order : ordered)
+        {
+            System.out.print(order.getName() + " ");
+        }
+    }
     
     
     
