@@ -25,7 +25,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        testFindBuildOrder();
+        testConvertDoubleToString();
     }
  
     //*---------FUNCTIONS-------------*
@@ -958,12 +958,83 @@ public class InterviewMethods {
         }
     }
     
+    public static int insertBinaryNum(int n, int m, int i, int j)
+    {
+        int allOnes = ~0;
+        int left = allOnes << (j+1);
+        int right = (1 << i) - 1;
+        int mask = left | right;
+        int n_cleared = n & mask;
+        int m_shifted = m << i;
+        return n_cleared | m_shifted;
+    }
     
+    public static String convertDoubleToString(double input)
+    {
+        if(input >= 1 | input <= 0){return "Error";}
+        StringBuilder binary = new StringBuilder();
+        binary.append('.');
+        double r = input;
+        while(input > 0)
+        {
+            if(binary.length() > 32){return "Binary too long!  " + binary.toString();}
+            r = input * 2;
+            System.out.println(input);
+            if(r >= 1) 
+            {
+                binary.append('1');
+                input = r - 1;
+            }
+            else
+            {
+                binary.append('0');
+                input = r;
+            }
+           
+        }
+        return binary.toString();
+    }
     
+    public static void testConvertDoubleToString()
+    {   
+        double input = returnConvertibleNumber(0);
+        System.out.println(convertDoubleToString(input));
+    }
     
+    public static double returnConvertibleNumber(int seed)       
+    {
+        double output = 0;
+        for(int i = 0; i <= seed; i++)
+        {
+            output += (.5/Math.pow(2, i));
+            System.out.println(output);
+        }
+        System.out.println("Calculated num:  " + output);
+        return output;
+    }
     
-    
-    
+    public static int maxLengthForFlip(int input)
+    {
+        if(~input == 0){return Integer.BYTES * 8;} //should be 32 bits
+        int cLength = 0;
+        int pLength = 0;
+        int mLength = 1;
+        while(input != 0)
+        {
+            if((input & 1) == 1)
+            {
+                cLength++;
+            }
+            else if ((input & 1) == 0)
+            {
+                pLength = (input & 2) == 0 ? 0 : cLength;
+                cLength = 0;
+            }
+            mLength = Math.max(pLength + cLength + 1, mLength);
+            input = input >> 1;
+        }
+        return mLength;
+    }
     
     
     
