@@ -25,7 +25,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        testMaxLengthForFlip();
+        playBlackjack();
     }
  
     //*---------FUNCTIONS-------------*
@@ -1062,7 +1062,21 @@ public class InterviewMethods {
         return count;
     }
     
-    
+    public static void playBlackjack()
+    {
+        jDeck deck = new jDeck();
+        deck.setStanDeckOfCards(deck.getCards());
+        deck.shuffle();
+        jHand cHand = new jHand();
+        jHand pHand = new jHand();
+        pHand.addCards(deck.dealHand(54));
+        System.out.println("Score: " + pHand.score());
+        for(jCard card : pHand.cards)
+        {
+            System.out.println(card.faceValue + " " + card.suit);
+        }
+        
+    }
     
     
     
