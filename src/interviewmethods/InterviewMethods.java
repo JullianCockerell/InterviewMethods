@@ -1075,8 +1075,8 @@ public class InterviewMethods {
         {
             System.out.println(card.faceValue + " " + card.suit);
         }
-        
     }
+    
     
     
     
