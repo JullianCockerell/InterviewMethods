@@ -26,6 +26,12 @@ public class mineCell
         column = c;
     }
     
+    public void setRowAndCol(int r, int c)
+    {
+        row = r;
+        column = c;
+    }
+    
     public void setBomb()
     {
         isBomb = true;
@@ -72,6 +78,11 @@ public class mineCell
         if(isExposed){return getUnder();}
         else if(isGuess){return "B ";}
         else {return "? ";}
+    }
+    
+    public void incrementNum()
+    {
+        number++;
     }
     
          

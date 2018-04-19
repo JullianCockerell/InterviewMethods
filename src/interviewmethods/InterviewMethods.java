@@ -26,7 +26,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        testCircArray();
+        testMinesweeper();
     }
  
     //*---------FUNCTIONS-------------*
@@ -1095,6 +1095,10 @@ public class InterviewMethods {
         
     }
     
+    public static void testMinesweeper()
+    {
+        mineBoard newGame = new mineBoard(10, 20, 10);
+    }
     
     
     
