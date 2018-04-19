@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package interviewmethods;
+import interviewmethods.mineSweeper.*;
 import java.util.BitSet;
 import java.util.Arrays;
 import java.lang.StringBuilder;
@@ -25,7 +26,7 @@ public class InterviewMethods {
     //Main function
     public static void main(String[] args) 
     {
-        playBlackjack();
+        testCircArray();
     }
  
     //*---------FUNCTIONS-------------*
@@ -1077,7 +1078,22 @@ public class InterviewMethods {
         }
     }
     
-    
+    public static void testCircArray()
+    {
+        CircularArray<String> cArray = new CircularArray<String>(10);
+        String[] words = {"the", "cat", "jumped", "off", "the", "counter", "and", "bit", "the", "child"};
+        
+        for(int i = 0; i < cArray.getSize(); i++)
+        {
+            cArray.set(i, words[i]);
+        }
+        cArray.rotate(15);
+        for(String word : cArray)
+        {
+            System.out.println(word);
+        }
+        
+    }
     
     
     

@@ -14,6 +14,7 @@ public class CircularArray<T> implements Iterable<T>
 {
     private T[] items;
     private int head = 0;
+    private int size;
     
     public Iterator<T> iterator()
     {
@@ -54,6 +55,7 @@ public class CircularArray<T> implements Iterable<T>
     public CircularArray(int size)
     {
         items = (T[]) new Object[size];
+        this.size = size;
     }
     
     private int convert(int index)
@@ -79,5 +81,10 @@ public class CircularArray<T> implements Iterable<T>
     public void set(int i, T item)
     {
         items[convert(i)] = item;
+    }
+    
+    public int getSize()
+    {
+        return size;
     }
 }
