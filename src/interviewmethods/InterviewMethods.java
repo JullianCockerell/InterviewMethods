@@ -1097,7 +1097,8 @@ public class InterviewMethods {
     
     public static void testMinesweeper()
     {
-        mineBoard newGame = new mineBoard(10, 20, 10);
+        mineBoard newGame = new mineBoard(10, 10, 1);
+        newGame.playGame();
     }
     
     

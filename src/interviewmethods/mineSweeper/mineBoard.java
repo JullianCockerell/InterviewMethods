@@ -5,7 +5,10 @@
  */
 package interviewmethods.mineSweeper;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -25,13 +28,29 @@ public class mineBoard
         nRows = r;
         nColumns = c;
         nBombs = b;
-        
         initializeBoard();
         shuffleBoard();
         setNumberedCells();
         numUnexposedLeft = (r*c) - b;
-        printBoard(true);
         printBoard(false);
+        
+    }
+    
+    public void playGame()
+    {
+        Scanner reader = new Scanner(System.in);
+        int n, m;
+        while(true)
+        {
+            System.out.println("Move: (row, col)");
+            n = reader.nextInt();
+            m = reader.nextInt();
+            System.out.println("");
+            flipPiece(n, m);
+            if(numUnexposedLeft == 0){youWin();}
+            printBoard(false);
+        }
+
     }
     
     private void initializeBoard()
@@ -53,6 +72,22 @@ public class mineBoard
             bombs[i] = cells[r][c];
             bombs[i].setBomb();
         }
+    }
+    
+    private boolean flipPiece(int r, int c)
+    {
+        mineCell piece = cells[r][c];
+        numUnexposedLeft--;
+        if(!piece.flip()){printBoard(true); System.out.println("BOOM!"); System.exit(0);}
+        else if(piece.isBlank())
+        {
+            expandBlank(piece);
+        }
+        else
+        {
+            return true;
+        }
+        return false;
     }
 
     private void shuffleBoard()
@@ -104,23 +139,42 @@ public class mineBoard
 	}
     }
     
+    private void youWin()
+    {
+        System.out.println("   /\\_/\\   ");
+        System.out.println("  / o o \\  ");
+        System.out.println(" (   \"   ) ");
+        System.out.println("  \\~(*)~/  ");
+        System.out.println("   // \\\\   ");
+        System.out.println("   YOU WIN!!!  ");
+        System.exit(0);
+    }
     public void printBoard(boolean showUnderside) 
     {
         System.out.println();
-	System.out.print("   ");
+        System.out.println(numUnexposedLeft);
+	System.out.print("    ");
 	for (int i = 0; i < nColumns; i++) 
         {
             System.out.print(i + " ");
+            if(i < 10){System.out.print(" ");}
 	}
 	System.out.println();
 	for (int i = 0; i < nColumns; i++) 
         {
-            System.out.print("--");
+            System.out.print("---");
 	}		
 	System.out.println();
 	for (int r = 0; r < nRows; r++) 
         {
-            System.out.print(r + "| ");
+            if(r > 9)
+            {
+                System.out.print(r + "| ");
+            }
+            else
+            {
+                System.out.print(" "+ r + "| ");
+            }
             for (int c = 0; c < nColumns; c++) 
             {
 		if (showUnderside) 
@@ -131,7 +185,37 @@ public class mineBoard
                     System.out.print(cells[r][c].getSurface());
 		}
             }
-	System.out.println();
+            System.out.println();
+	}
+    }
+    
+    private void expandBlank(mineCell cell) 
+    {
+        int[][] deltas = {{-1, -1}, {-1, 0}, {-1, 1},{ 0, -1},{ 0, 1},{ 1, -1}, { 1, 0}, { 1, 1}};		
+        System.out.println("Entered");
+	Queue<mineCell> toExplore = new LinkedList<mineCell>();
+	toExplore.add(cell);
+		
+	while (!toExplore.isEmpty()) 
+        {
+            mineCell current = toExplore.remove();
+			
+            for (int[] delta : deltas) 
+            {
+		int r = current.getRow() + delta[0];
+		int c = current.getCol() + delta[1];
+				
+		if (inBounds(r, c)) 
+                {
+                    mineCell neighbor = cells[r][c];
+                    if (neighbor.isBlank() && !neighbor.isExposed()) 
+                    {
+                        toExplore.add(neighbor);
+                        neighbor.flip();
+                        numUnexposedLeft--;
+                    }
+		}
+            }			
 	}
     }
     

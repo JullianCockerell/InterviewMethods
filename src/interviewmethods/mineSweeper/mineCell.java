@@ -62,9 +62,9 @@ public class mineCell
     
     public String getUnder()
     {
-        if(isBomb){return "* ";}
-        else if(number > 0){return Integer.toString(number) + " ";}
-        else {return " ";}
+        if(isBomb){return "*  ";}
+        else if(number > 0){return Integer.toString(number) + "  ";}
+        else {return "   ";}
     }
     
     @Override
@@ -76,8 +76,8 @@ public class mineCell
     public String getSurface()
     {
         if(isExposed){return getUnder();}
-        else if(isGuess){return "B ";}
-        else {return "? ";}
+        else if(isGuess){return "B  ";}
+        else {return "?  ";}
     }
     
     public void incrementNum()
